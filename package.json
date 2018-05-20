@@ -1,0 +1,14 @@
+{
+  "name": "nodejs-cms",
+  "version": "1.0.0",
+  "description": "node js cms project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "praful",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
