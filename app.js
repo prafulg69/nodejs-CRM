@@ -7,18 +7,12 @@ app.use(express.static(path.join(__dirname,'public')));
 app.engine('handlebars', exphbs({defaultLayout: 'home'}));
 app.set('view engine', 'handlebars');
 
-app.get('/', (req, res)=>{
+const home = require('./routes/home/index');
+const admin = require('./routes/admin/index');
 
-    res.render('home/index');
-});
+app.use('/', home);
+app.use('/admin', admin);
 
-
-app.get('/about', (req, res)=>{
-    
-        res.render('home/about');
-    });
-
-    
 app.listen(4500, ()=>{
 
     console.log('Listening on porrt 4500');
