@@ -7,14 +7,9 @@ router.all('/*', (req, res, next)=>{
     next();
 });
 
+router.get('/',(req, res)=>{
 
-router.get('/', (req, res)=>{
-    
-        res.render('admin/index');
-    });
-    
-router.get('/dashboard', (req, res)=>{
-        
-     res.render('admin/dashboard');
+    res.send('IT WORK');
 });
+
 module.exports = router;
