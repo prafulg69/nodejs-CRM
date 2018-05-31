@@ -15,7 +15,7 @@ const PostSchema = new Schema({
     },
 
     
-    alloComments:{
+    allowComments:{
         type: Boolean,
         required: true
     },

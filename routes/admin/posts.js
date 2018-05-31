@@ -9,8 +9,11 @@ router.all('/*', (req, res, next)=>{
 });
 
 router.get('/',(req, res)=>{
-
-    res.send('IT WORK');
+ 
+    Post.find({}).then(posts=>{
+    
+        res.render('admin/posts',{posts: posts});
+    });
 });
 
 router.get('/create',(req, res)=>{
@@ -20,19 +23,19 @@ router.get('/create',(req, res)=>{
 
     router.post('/create',(req, res)=>{
         
-    let allComments = true;
-    if(req.body.allComments){
+    let allowComments = true;
+    if(req.body.allowComments){
 
-        allComments = true;
+        allowComments = true;
     }else {
 
-        allComments = false;
+        allowComments = false;
     }
    const newPost = Post({
   
     title: req.body.title,
     status: req.body.status,
-    allComments: allComments,
+    allowComments: allowComments,
     body: req.body.body
    });
 
@@ -43,6 +46,15 @@ router.get('/create',(req, res)=>{
 
     console.log('could not save post' + error);
    });
+ });
+
+ router.get('/edit/:id', (req, res)=>{
+ 
+    Post.findOne({_id:req.param.id}).then(post=>{
+         res.render('admin/posts/edit',{post: post});
         });
+    //res.send(req.param.id);
+    //res.render('admin/posts/edit');
+ });
     
 module.exports = router;
