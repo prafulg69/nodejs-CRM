@@ -50,11 +50,44 @@ router.get('/create',(req, res)=>{
 
  router.get('/edit/:id', (req, res)=>{
  
-    Post.findOne({_id:req.param.id}).then(post=>{
+    Post.findOne({_id:req.params.id})
+       .then(post=>{
          res.render('admin/posts/edit',{post: post});
         });
-    //res.send(req.param.id);
+  //  res.send(req.params.id);
     //res.render('admin/posts/edit');
  });
     
+
+ router.put('/edit/:id',(req, res)=>{
+ 
+    Post.findOne({_id:req.params.id})
+    .then(post=>{       
+        if(req.body.allowComments){
+               allowComments = true;
+                }else {
+               allowComments = false;
+                }
+
+
+                post.title = req.body.title;
+                post.status = req.body.status;
+                post.allowComments = allowComments;
+                post.body = req.body.body; 
+
+                post.save().then(updatedPost=>{
+
+                    res.redirect('/admin/posts');
+                });
+     });
+ });
+
+ router.delete('/:id', (req, res)=>{
+
+    Post.remove({_id: req.params.id})
+    .then(result=>{
+    
+        res.redirect('/admin/posts');
+    });
+ });
 module.exports = router;
